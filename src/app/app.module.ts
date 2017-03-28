@@ -14,6 +14,7 @@ import {FormsModule} from "@angular/forms";
 import {DatePicker} from '@ionic-native/date-picker';
 import {Contacts} from '@ionic-native/contacts';
 import {EntryPage} from "../pages/entry/entry";
+import {Dotdotdot} from '../pipes/dotdotdot'
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {EntryPage} from "../pages/entry/entry";
     ContactPage,
     EntriesPage,
     TabsPage,
-    EntryPage
+    EntryPage,
+    Dotdotdot
   ],
   imports: [
     IonicModule.forRoot(MyApp),
