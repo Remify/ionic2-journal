@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Mon Journal</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card *ngFor="let entry of entries">
+    <ion-card-header>
+      <ion-card-title>{{ entry.title }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-item>
+      <p> {{ entry.date | amDateFormat:'LL' }}</p>
+    </ion-item>
+
+
+    <ion-slides *ngIf="entry.images.length > 0">
+      <ion-slide *ngFor="let uri of entry.images">
+        <img src="{{ uri }}"/>
+      </ion-slide>
+    </ion-slides>
+
+    <ion-card-content>
+      <p>{{ entry.content }}</p>
+    </ion-card-content>
+
+    <ion-row>
+      <ion-col left text-center>
+
+        <button ion-button icon-left clear small>
+
+          <ion-note>
+            {{entry.date | amTimeAgo}}
+          </ion-note>
+
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-left clear small>
+          <ion-icon name="md-book"></ion-icon>
+          <div>Lire la suite</div>
+        </button>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+
+</ion-content>

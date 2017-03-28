@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Nouvelle entrée dans le Journal
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+    <form #newEntryForm="ngForm" (ngSubmit)="SubmitNewEntry()">
+
+      <ion-item>
+        <ion-label>Titre :</ion-label>
+        <ion-input type="text" [(ngModel)]="entry.title" name="title" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Date :</ion-label>
+        <ion-datetime #dateTime
+                      [(ngModel)]="currentDate"
+                      name="currentDate"
+                      pickerFormat="DD-MM-YYYY"
+                      (ngModelChange)="displayTimePicker()"
+                      required>
+
+        </ion-datetime>
+        <ion-datetime #TimePicker [(ngModel)]="currentDate" name="currentTime" pickerFormat="HH:mm" required
+                      hidden></ion-datetime>
+
+      </ion-item>
+
+
+      <ion-item>
+        <ion-textarea rows="6" placeholder="Écrivez-ici" [(ngModel)]="entry.content" name="content"></ion-textarea>
+      </ion-item>
+
+      <ion-item *ngIf="entry.images.length > 0">
+        <ion-slides>
+          <ion-slide *ngFor="let uri of entry.images">
+            <img src="{{ uri }}" height="150"/>
+          </ion-slide>
+        </ion-slides>
+      </ion-item>
+
+      <button ion-button color="light" padding full round [disabled]="!newEntryForm.valid">Enregistrer</button>
+
+
+    </form>
+
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <ion-row class="bottom-bar">
+    <ion-col text-center>
+      <button ion-button icon-center clear small class="bottom-bar-btn"
+              (click)="openImagesOptions()">
+        <ion-icon name="image"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col text-center>
+      <button ion-button icon-center clear small class="bottom-bar-btn"
+      (click)="pickContact()">
+        <ion-icon name="contacts"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col text-center>
+      <button ion-button icon-center clear small class="bottom-bar-btn">
+        <ion-icon name="pin"></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-footer>
