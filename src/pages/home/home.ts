@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {StoreService} from "../../providers/storage";
 import {Entry} from "../../model/entry.class";
+import {EntryPage} from "../entry/entry";
 
 @Component({
   selector: 'page-home',
@@ -15,8 +16,12 @@ export class EntriesPage {
     this.entries = [];
     this.store.entries.subscribe(
       // Tri de l'entrée la plus récente
-      entries => this.entries = entries.sort((a, b) => {return b.date.getTime() - a.date.getTime()})
+      entries => this.entries = entries.sort((a, b) => { return b.date.getTime() - a.date.getTime() })
     )
+  }
+
+  showEntry(e :Entry ) {
+    this.navCtrl.push(EntryPage, { entry : e})
   }
 
 }

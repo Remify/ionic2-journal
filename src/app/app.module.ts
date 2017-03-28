@@ -13,6 +13,7 @@ import {StoreService} from "../providers/storage";
 import {FormsModule} from "@angular/forms";
 import {DatePicker} from '@ionic-native/date-picker';
 import {Contacts} from '@ionic-native/contacts';
+import {EntryPage} from "../pages/entry/entry";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {Contacts} from '@ionic-native/contacts';
     NewEntryPage,
     ContactPage,
     EntriesPage,
-    TabsPage
+    TabsPage,
+    EntryPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -34,7 +36,8 @@ import {Contacts} from '@ionic-native/contacts';
     NewEntryPage,
     ContactPage,
     EntriesPage,
-    TabsPage
+    TabsPage,
+    EntryPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, ImagePicker, StoreService, DatePicker, Contacts]
 })

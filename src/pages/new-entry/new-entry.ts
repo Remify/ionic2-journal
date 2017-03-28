@@ -103,7 +103,7 @@ export class NewEntryPage {
     // Change l'entrée courante par defaut
     this.entry = new Entry();
     // Redirection
-    this.navCtrl.push(EntriesPage)
+    this.navCtrl.parent.select(0);
 
     // Return false pour pas que le form submit (pb de rechargement de la page)
     return false
