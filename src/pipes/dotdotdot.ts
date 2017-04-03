@@ -17,6 +17,6 @@ export class Dotdotdot  {
   transform(value, args) {
     console.log('dotodotdsot')
     value = value + ''; // make sure it's a string
-    return value.substring(0, 50) + ' ...';
+    return value.substring(0, 100) + ' ...';
   }
 }

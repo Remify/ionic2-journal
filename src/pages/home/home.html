@@ -21,8 +21,8 @@
       </ion-slide>
     </ion-slides>
 
-    <ion-card-content>
-      <p class="resume">{{ entry.content }}</p>
+    <ion-card-content *ngIf="entry.content">
+      <p class="resume">{{ entry.content | dotdotdot }}</p>
     </ion-card-content>
 
     <ion-row>

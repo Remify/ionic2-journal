@@ -47,11 +47,8 @@ export class StoreService {
     )
   }
 
-  displayTimePicker() {
-    console.log('timepicker')
-  }
-
   saveEntry(e: Entry) {
+    console.log('saving entry ...');
     let cacheArr = this.entries.getValue();
     cacheArr.push(e);
     this.entries.next(cacheArr);

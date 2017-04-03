@@ -1,3 +1,4 @@
 Bugs référencés :
-- Redirect après nouvelle entrée. Le tab ne change pas.
-- 
+- Sur téléphone aprèsn ajout d'une image, 2 entrée vide
+- Entry time est le même 
+- Date et heure à changer

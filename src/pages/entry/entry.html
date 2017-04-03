@@ -33,15 +33,21 @@
         <ion-icon name="pin"></ion-icon>
         Grenoble
     </ion-row>
-    <ion-row>
-        <ion-icon name="people"></ion-icon> Rémi Bouguermouh, Lucas, Nicolas Lorem, Patate
+    <ion-row *ngIf="entry.contacts.length > 0">
+        <ion-icon name="people"></ion-icon>
+
+
+      <ion-badge item-right *ngFor="let contact of entry.contacts" (click)="showContact(contact.id)">
+        {{ contact.displayName }}
+      </ion-badge>
+
     </ion-row>
   </ion-item>
 
-  <div padding>
+  <div padding *ngIf="entry.content">
 
     <p>
-      {{ entry.content | dotdotdot }}
+      {{ entry.content}}
     </p>
   </div>
 

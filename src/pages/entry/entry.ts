@@ -24,4 +24,8 @@ export class EntryPage {
     console.log('ionViewDidLoad EntryPage');
   }
 
+  showContact(id :string) {
+    console.log('show contact id :' + id);
+  }
+
 }

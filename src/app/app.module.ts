@@ -13,8 +13,10 @@ import {StoreService} from "../providers/storage";
 import {FormsModule} from "@angular/forms";
 import {DatePicker} from '@ionic-native/date-picker';
 import {Contacts} from '@ionic-native/contacts';
+import { Camera } from '@ionic-native/camera';
 import {EntryPage} from "../pages/entry/entry";
 import {Dotdotdot} from '../pipes/dotdotdot'
+import { Base64ToGallery } from '@ionic-native/base64-to-gallery';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,7 @@ import {Dotdotdot} from '../pipes/dotdotdot'
     TabsPage,
     EntryPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, ImagePicker, StoreService, DatePicker, Contacts]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, ImagePicker, StoreService, Camera, DatePicker, Contacts, Base64ToGallery]
 })
 export class AppModule {
 }
