@@ -5,12 +5,9 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngFor="let entry of entries">
-    <ion-card-header>
-      <ion-card-title>{{ entry.title }}</ion-card-title>
-    </ion-card-header>
-
+  <ion-card *ngFor="let entry of entries;">
     <ion-item>
+      <h2>{{ entry.title }}</h2>
       <p> {{ entry.date | amDateFormat:'LL' }}</p>
     </ion-item>
 

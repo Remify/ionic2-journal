@@ -3,4 +3,23 @@ page-entry {
     ion-slides {
         height: 20% !important;
     }
+
+  ion-badge {
+    margin:0px 3px;
+  }
+
+  .details {
+    display:flex !important;
+    align-items : center;
+
+    ion-icon {
+      margin-right: 5px;
+    }
+  }
+
+  .toolbar-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }

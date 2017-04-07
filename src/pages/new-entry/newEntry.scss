@@ -7,4 +7,11 @@ new-entry-page {
     }
 
   }
+
+  ion-spinner {
+    position: relative;
+    top: 50%;
+    z-index: 9999;
+    left: 43%;
+  }
 }

@@ -1,3 +1,6 @@
+
+<ion-spinner *ngIf="spinning"></ion-spinner>
+
 <ion-header>
   <ion-navbar>
     <ion-title>
@@ -7,7 +10,6 @@
 </ion-header>
 
 <ion-content padding>
-
   <ion-list>
     <form #newEntryForm="ngForm" (ngSubmit)="SubmitNewEntry()">
 
@@ -28,6 +30,23 @@
         </ion-datetime>
         <ion-datetime #TimePicker [(ngModel)]="currentDate" name="currentTime" pickerFormat="HH:mm" required
                       hidden></ion-datetime>
+
+      </ion-item>
+
+      <ion-item *ngIf="entry.ville || entry.contacts.length > 0">
+
+        <ion-row  class="details" *ngIf="entry.ville">
+          <ion-icon name="pin"></ion-icon>
+          {{ entry.ville}}
+        </ion-row>
+
+        <ion-row  *ngIf="entry.contacts.length > 0">
+
+          <ion-badge item-right *ngFor="let contact of entry.contacts">
+            {{ contact.displayName }}
+          </ion-badge>
+
+        </ion-row>
 
       </ion-item>
 
@@ -68,7 +87,8 @@
       </button>
     </ion-col>
     <ion-col text-center>
-      <button ion-button icon-center clear small class="bottom-bar-btn">
+      <button ion-button icon-center clear small class="bottom-bar-btn"
+      (click)="getGeoPos()">
         <ion-icon name="pin"></ion-icon>
       </button>
     </ion-col>

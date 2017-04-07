@@ -1,5 +1,5 @@
 import {EntryContact} from "./contact.class";
-import {Contact} from "ionic-native";
+import {Contact} from "@ionic-native/contacts";
 
 
 export class Entry {
@@ -8,7 +8,8 @@ export class Entry {
   date: Date;
   content: string;
   images: string[];
-  contacts: EntryContact[]
+  contacts: EntryContact[];
+  ville :string;
 
 
   constructor() {
@@ -18,6 +19,10 @@ export class Entry {
 
   addImage(uri: string): void {
     this.images.push(uri);
+  }
+
+  addImageBase64(image :any) {
+
   }
 
   addContact(c :Contact) {
