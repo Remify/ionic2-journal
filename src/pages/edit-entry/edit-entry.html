@@ -7,7 +7,11 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title> {{ entry.title }}</ion-title>
+        <ion-title> Modifier l'entrée</ion-title>
+
+        <button ion-button color="dark" clear (click)="showOptions()">
+        <ion-icon name="md-options"></ion-icon>
+      </button>
     </ion-navbar>
 
 </ion-header>
@@ -21,8 +25,11 @@
     </ion-item>
     <!-- Title -->
     <ion-item>
+
         <ion-label color="primary" stacked>Date</ion-label>
-        <ion-input [(ngModel)]="entry.date"></ion-input>
+        <ion-datetime #dateTime [(ngModel)]="entry.date" name="currentDate" pickerFormat="DD-MM-YYYY">
+        </ion-datetime>
+
     </ion-item>
     <!-- Title -->
     <ion-item>
@@ -36,5 +43,5 @@
 
 
 <ion-footer>
-    <button ion-button full>Enregistrer</button>
+    <button ion-button full (click)="update()">Enregistrer</button>
 </ion-footer>

@@ -17,7 +17,11 @@ import {EditEntryPage} from "../edit-entry/edit-entry";
 export class EntryPage {
 
   @Input() entry: Entry;
+
+
+  // Push sur edit page (voir html)
   pushPage = EditEntryPage;
+  // Object passé au NavController
   params;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
@@ -31,11 +35,7 @@ export class EntryPage {
   }
 
   showContact(id: string) {
-    console.log('show contact id :' + id);
-  }
-
-  editEntry() {
-
+    console.log('show contacts id :' + id);
   }
 
 }

@@ -34,7 +34,7 @@
 
   </ion-item>
 
-  <ion-item>
+  <ion-item  *ngIf="entry.ville || entry.contacts">
     <ion-row class="details" *ngIf="entry.ville">
       <ion-icon name="pin"></ion-icon>
       {{ entry.ville }}

@@ -2,6 +2,9 @@
  * Created by bouguerr on 24/03/2017.
  */
 
+/**
+ * Contact pour les entrée
+ */
 export class EntryContact {
 
   id: string;

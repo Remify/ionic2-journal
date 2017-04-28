@@ -21,17 +21,16 @@ export class Entry {
     this.images.push(uri);
   }
 
-  addImageBase64(image :any) {
-
-  }
 
   addContact(c :Contact) {
     let nums :string[] = [];
 
+    // Récupère seulement les numéros pour les ajouter
     if(c.phoneNumbers) {
       nums  = c.phoneNumbers.map( pn => pn.value);
     }
 
+    // Ajout de EntryContact à la liste des contacts de l'entrée
     this.contacts.push( new EntryContact(c.id, c.displayName, nums) )
   }
 

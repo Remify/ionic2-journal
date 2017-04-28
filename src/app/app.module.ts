@@ -2,7 +2,7 @@ import {NgModule, ErrorHandler} from '@angular/core';
 import {IonicApp, IonicModule, IonicErrorHandler, AlertController} from 'ionic-angular';
 import {MyApp} from './app.component';
 import {NewEntryPage} from '../pages/new-entry/new-entry';
-import {ContactPage} from '../pages/contact/contact';
+import {ContactPage} from '../pages/contacts/contacts';
 import {MomentModule} from 'angular2-moment';
 import 'moment/locale/fr';
 import {EntriesPage} from '../pages/home/home';
