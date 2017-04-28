@@ -2,7 +2,6 @@ import {NgModule, ErrorHandler} from '@angular/core';
 import {IonicApp, IonicModule, IonicErrorHandler, AlertController} from 'ionic-angular';
 import {MyApp} from './app.component';
 import {NewEntryPage} from '../pages/new-entry/new-entry';
-import {ContactPage} from '../pages/contacts/contacts';
 import {MomentModule} from 'angular2-moment';
 import 'moment/locale/fr';
 import {EntriesPage} from '../pages/home/home';
@@ -20,12 +19,13 @@ import {Base64ToGallery} from '@ionic-native/base64-to-gallery';
 import {Geolocation} from "@ionic-native/geolocation";
 import {GeoService} from "../providers/geo-service";
 import {EditEntryPage} from "../pages/edit-entry/edit-entry";
+import {ContactsPage} from "../pages/contacts/contacts";
 
 @NgModule({
   declarations: [
     MyApp,
     NewEntryPage,
-    ContactPage,
+    ContactsPage,
     EntriesPage,
     TabsPage,
     EntryPage,
@@ -42,7 +42,7 @@ import {EditEntryPage} from "../pages/edit-entry/edit-entry";
   entryComponents: [
     MyApp,
     NewEntryPage,
-    ContactPage,
+    ContactsPage,
     EntriesPage,
     EditEntryPage,
     TabsPage,

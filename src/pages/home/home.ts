@@ -14,7 +14,7 @@ export class EntriesPage {
   constructor(public navCtrl: NavController, private store:StoreService) {
 
     this.entries = [];
-    // Souscription au store 
+    // Souscription au store
     this.store.entries.subscribe(
       // Tri de l'entrée la plus récente
       entries =>  {
@@ -27,6 +27,10 @@ export class EntriesPage {
 
   showEntry(e :Entry ) {
     this.navCtrl.push(EntryPage, { entry : e})
+  }
+
+  gotoNewEntry() {
+    this.navCtrl.parent.select(1);
   }
 
 }

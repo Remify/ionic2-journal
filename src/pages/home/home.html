@@ -5,6 +5,12 @@
 </ion-header>
 
 <ion-content padding>
+  <div *ngIf="entries.length == 0">
+    Oups il semble ne pas y avoir d'entrée dans votre Journal ! :(
+    <button ion-button block (click)="gotoNewEntry()">
+      Ajouter une Entrée
+    </button>
+  </div>
   <ion-card *ngFor="let entry of entries;">
     <ion-item>
       <h2>{{ entry.title }}</h2>
