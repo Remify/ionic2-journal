@@ -4,4 +4,15 @@ page-edit-entry {
         align-items: center;
         justify-content: space-between;
     }
+    .img-grid img {
+        width: 125px;
+        max-width: none;
+    }
+    .update {
+        background-color: map-get($colors, danger);
+    }
+    .edit-ville {
+        display: flex;
+        justify-content: space-between;
+    }
 }

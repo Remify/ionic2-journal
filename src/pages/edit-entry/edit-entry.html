@@ -10,8 +10,8 @@
         <ion-title> Modifier l'entrée</ion-title>
 
         <button ion-button color="dark" clear (click)="showOptions()">
-        <ion-icon name="md-options"></ion-icon>
-      </button>
+      <ion-icon name="md-options"></ion-icon>
+    </button>
     </ion-navbar>
 
 </ion-header>
@@ -23,7 +23,7 @@
         <ion-label color="primary" stacked>Titre</ion-label>
         <ion-input [(ngModel)]="entry.title"></ion-input>
     </ion-item>
-    <!-- Title -->
+    <!-- Date -->
     <ion-item>
 
         <ion-label color="primary" stacked>Date</ion-label>
@@ -31,17 +31,47 @@
         </ion-datetime>
 
     </ion-item>
-    <!-- Title -->
+
+    <!-- Ville & Contacts -->
+    <ion-item *ngIf="entry.ville || entry.contacts">
+        <ion-row class="details" *ngIf="entry.ville" class="edit-ville">
+            <div>
+                <ion-icon name="pin"></ion-icon>
+                &nbsp;{{ entry.ville }}
+            </div>
+
+            <ion-icon name="md-trash" color="danger" (click)="clearPos()"></ion-icon>
+
+        </ion-row>
+        <ion-row class="details " *ngIf="entry.contacts.length > 0">
+            <ion-icon name="people"></ion-icon>
+
+
+            <ion-badge item-right *ngFor="let contact of entry.contacts" (press)="pressClearContact(contact.id)">
+                {{ contact.displayName }}
+            </ion-badge>
+
+        </ion-row>
+    </ion-item>
+    <!-- Contenu -->
     <ion-item>
         <ion-label color="primary" stacked>Contenu</ion-label>
         <ion-textarea rows="6" [(ngModel)]="entry.content" name="content"></ion-textarea>
     </ion-item>
 
-
+    <ion-item *ngIf="entry.images.length > 0">
+        <ion-grid class="img-grid">
+            <ion-row>
+                <ion-col col-lg-4 col-xl-3 *ngFor="let link of entry.images" (press)="pressImageOptions(link)">
+                    <img [src]="link" width="125px" />
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item>
 
 </ion-content>
 
 
 <ion-footer>
-    <button ion-button full (click)="update()">Enregistrer</button>
+    <button ion-button full (click)="update()" [class.update]="needToUpdate">Enregistrer</button>
 </ion-footer>

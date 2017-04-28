@@ -7,54 +7,52 @@
 
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>{{ this.entry.title }}
+    <ion-navbar>
+        <ion-title>{{ this.entry.title }}
 
-      <button ion-button color="dark" clear navPop
-              [navPush]="pushPage" [navParams]="params"
-              >
+            <button ion-button color="dark" clear navPop [navPush]="pushPage" [navParams]="params">
         <ion-icon name="md-create">
         </ion-icon>
       </button>
 
-    </ion-title>
+        </ion-title>
 
-  </ion-navbar>
+    </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <ion-item *ngIf="entry.images.length > 0">
+    <ion-item *ngIf="entry.images.length > 0">
 
-    <ion-slides>
-      <ion-slide *ngFor="let uri of entry.images">
-        <img src="{{ uri }}"/>
-      </ion-slide>
-    </ion-slides>
+        <ion-slides>
+            <ion-slide *ngFor="let uri of entry.images">
+                <img src="{{ uri }}" />
+            </ion-slide>
+        </ion-slides>
 
-  </ion-item>
+    </ion-item>
 
-  <ion-item  *ngIf="entry.ville || entry.contacts">
-    <ion-row class="details" *ngIf="entry.ville">
-      <ion-icon name="pin"></ion-icon>
-      {{ entry.ville }}
-    </ion-row>
-    <ion-row class="details" *ngIf="entry.contacts.length > 0">
-      <ion-icon name="people"></ion-icon>
+    <ion-item *ngIf="entry.ville || entry.contacts">
+        <ion-row class="details" *ngIf="entry.ville">
+            <ion-icon name="pin"></ion-icon>
+            &nbsp;{{ entry.ville }}
+        </ion-row>
+        <ion-row class="details" *ngIf="entry.contacts.length > 0">
+            <ion-icon name="people"></ion-icon>
 
 
-      <ion-badge item-right *ngFor="let contact of entry.contacts" (click)="showContact(contact.id)">
-        {{ contact.displayName }}
-      </ion-badge>
+            <ion-badge item-right *ngFor="let contact of entry.contacts" (click)="showContact(contact.id)">
+                {{ contact.displayName }}
+            </ion-badge>
 
-    </ion-row>
-  </ion-item>
+        </ion-row>
+    </ion-item>
 
-  <div padding *ngIf="entry.content">
+    <div padding *ngIf="entry.content">
 
-    <p>
-      {{ entry.content}}
-    </p>
-  </div>
+        <p>
+            {{ entry.content}}
+        </p>
+    </div>
 
 </ion-content>

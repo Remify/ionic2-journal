@@ -18,7 +18,6 @@ export class EntriesPage {
     this.store.entries.subscribe(
       // Tri de l'entrée la plus récente
       entries =>  {
-        console.log(entries);
         this.entries = entries;
         this.entries.sort((a, b) => { return b.date.getTime() - a.date.getTime() });
       }
