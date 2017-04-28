@@ -20,6 +20,7 @@ import {Geolocation} from "@ionic-native/geolocation";
 import {GeoService} from "../providers/geo-service";
 import {EditEntryPage} from "../pages/edit-entry/edit-entry";
 import {ContactsPage} from "../pages/contacts/contacts";
+import {ContactService} from "../providers/contact";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,7 @@ import {ContactsPage} from "../pages/contacts/contacts";
   providers: [{
     provide: ErrorHandler,
     useClass: IonicErrorHandler
-  }, ImagePicker, StoreService, GeoService, Camera, DatePicker, Contacts, Geolocation, Base64ToGallery]
+  }, ImagePicker, StoreService, GeoService, ContactService, Camera, DatePicker, Contacts, Geolocation, Base64ToGallery]
 })
 export class AppModule {
 }

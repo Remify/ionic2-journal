@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
+import {EntryContact} from "../../model/contact.class";
+import {ContactService} from "../../providers/contact";
 
 @Component({
   selector: 'page-contact',
@@ -8,7 +10,9 @@ import { NavController } from 'ionic-angular';
 })
 export class ContactsPage {
 
-  constructor(public navCtrl: NavController) {
+  contacts: EntryContact[] = [];
+  constructor(public navCtrl: NavController, private  contactService : ContactService) {
+    this.contacts = this.contactService.contacts;
 
   }
 

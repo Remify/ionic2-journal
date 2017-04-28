@@ -12,7 +12,7 @@ import { Entry } from "../model/entry.class"
 @Injectable()
 export class StoreService {
   /**
-   * List immutable de nos Entry
+   * List des Entry
    * @type {BehaviorSubject}
    */
   entries: BehaviorSubject<Entry[]> = new BehaviorSubject([]);
@@ -93,6 +93,12 @@ export class StoreService {
 
   clear() {
     this.storage.clear();
+  }
+
+  delete(e :Entry) {
+    const index = this.getIndexOfEntry(e);
+    const newEntries = this.entries.getValue().filter(entry => entry !== e);
+    this.entries.next(newEntries);
   }
 
 
