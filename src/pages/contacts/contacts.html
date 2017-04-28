@@ -1,27 +1,23 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Contacts
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>
+            Contacts
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item-sliding *ngFor="let contact of contacts">
-      <ion-item>
-        <h2>{{ contact.displayName }}</h2>
-      </ion-item>
-      <ion-item-options side="left">
-        <button ion-button color="primary">
-          <ion-icon name="text"></ion-icon>
-          Text
-        </button>
-        <button ion-button color="secondary">
+    <ion-list>
+        <ion-item-sliding *ngFor="let contact of contacts">
+            <ion-item>
+                <h2>{{ contact.displayName }}</h2>
+            </ion-item>
+            <ion-item-options side="right" *ngIf="contact.numbers.length > 0">
+                <button ion-button color="secondary" (click)="callNumber(contact)">
           <ion-icon name="call"></ion-icon>
           Call
         </button>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
 </ion-content>

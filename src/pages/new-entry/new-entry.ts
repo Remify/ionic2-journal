@@ -1,16 +1,19 @@
-import {Component,} from '@angular/core';
-import {NavController, ActionSheetController, AlertController} from 'ionic-angular';
-import {ImagePicker} from "@ionic-native/image-picker";
-import {StoreService} from "../../providers/storage";
-import {Entry} from "../../model/entry.class";
+import { Component, } from '@angular/core';
+import { NavController, ActionSheetController, AlertController } from 'ionic-angular';
+import { ImagePicker } from "@ionic-native/image-picker";
+import { StoreService } from "../../providers/storage";
+import { Entry } from "../../model/entry.class";
 import * as moment from 'moment';
-import {DatePicker} from '@ionic-native/date-picker';
-import {Contacts} from "@ionic-native/contacts";
-import {Camera, CameraOptions} from '@ionic-native/camera';
-import {Base64ToGallery} from '@ionic-native/base64-to-gallery';
-import {Geolocation} from "@ionic-native/geolocation";
-import {GeoService} from "../../providers/geo-service";
-
+import { DatePicker } from '@ionic-native/date-picker';
+import { Contacts } from "@ionic-native/contacts";
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Base64ToGallery } from '@ionic-native/base64-to-gallery';
+import { Geolocation } from "@ionic-native/geolocation";
+import { GeoService } from "../../providers/geo-service";
+import { ContactService } from "../../providers/contact";
+import { EntryContact } from "../../model/contact.class";
+import { NewContactPage } from "../new-contact/new-contact";
+import { Events } from 'ionic-angular';
 
 @Component({
   selector: 'new-entry-page',
@@ -21,19 +24,21 @@ export class NewEntryPage {
   currentDate: String;
   time: Date;
   entry: Entry;
-  spinning :boolean = false;
+  spinning: boolean = false;
 
   constructor(public navCtrl: NavController,
-              private imagePicker: ImagePicker,
-              private storeService: StoreService,
-              private contacts: Contacts,
-              private datePicker: DatePicker,
-              private geolocation: Geolocation,
-              private camera: Camera,
-              public alertCtrl: AlertController,
-              private geoService: GeoService,
-              private base64ToGallery: Base64ToGallery,
-              public actionSheetCtrl: ActionSheetController) {
+    private imagePicker: ImagePicker,
+    private storeService: StoreService,
+    private contacts: Contacts,
+    private datePicker: DatePicker,
+    private geolocation: Geolocation,
+    public events: Events,
+    private camera: Camera,
+    private contactService: ContactService,
+    public alertCtrl: AlertController,
+    private geoService: GeoService,
+    private base64ToGallery: Base64ToGallery,
+    public actionSheetCtrl: ActionSheetController) {
     this.currentDate = new Date().toISOString();
     this.time = new Date();
     this.entry = new Entry();
@@ -51,7 +56,13 @@ export class NewEntryPage {
           this.imagePicker.requestReadPermission()
         }
       }
-    )
+    );
+
+    // Event nouveau contact pour cette entrée
+    this.events.subscribe('new:contact', (eventData) => {
+      let contactId = eventData.contact;
+      this.entry.contacts.push(contactId);
+    });
   }
 
   openImagesOptions() {
@@ -89,21 +100,21 @@ export class NewEntryPage {
     }).then(
       date => this.time = date,
       err => console.log('Une errreur est survenue en tentant de récupérer l\'heure: ', err)
-    );
+      );
   }
 
   getGeoPos() {
     this.spinning = true;
     this.geolocation.getCurrentPosition().then((resp) => {
       this.geoService.getLocation(resp.coords.latitude, resp.coords.longitude).subscribe(
-        (json: any)  => {
+        (json: any) => {
 
           this.spinning = false;
           // Récupération du nom de la ville à partir de la réponse de google maps
           let ville = "";
           json.results.forEach(
             AddressPart => {
-              if(AddressPart.types.indexOf('locality') >= 0) {
+              if (AddressPart.types.indexOf('locality') >= 0) {
                 ville = AddressPart.address_components[0].short_name;
               }
             }
@@ -173,25 +184,109 @@ export class NewEntryPage {
 
   }
 
+  openContactOptions() {
 
-  pickContact() {
+    // Instance du action sheet
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Contacts',
+      buttons: [
+        {
+          text: 'Créer un nouveau contact',
+          role: 'destructive ',
+          icon: 'add',
+          handler: () => {
+            this.openNewContactPage();
+          }
+        },
+        {
+          text: 'Choisir un contact',
+          role: 'destructive',
+          icon: 'albums',
+          handler: () => {
+            this.openListContacts();
+          }
+        },
+        {
+          text: 'Importer un contact',
+          role: 'destructive',
+          icon: 'person-add',
+          handler: () => {
+            this.pickContactFromPhone();
+          }
+        }
+      ]
+    });
+
+
+    // Affichage
+    actionSheet.present();
+  }
+
+  openListContacts() {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('Contacts');
+
+    this.contactService.contacts.getValue().forEach(
+      c => {
+        alert.addInput({
+          type: 'radio',
+          label: c.displayName,
+          value: c.id
+        });
+      });
+
+    alert.addButton('Annuler');
+    alert.addButton({
+      text: 'OK',
+      handler: data => {
+        console.log(data);
+        this.entry.contacts.push(data)
+      }
+    });
+
+    alert.present();
+
+  }
+
+
+
+  openNewContactPage() {
+    this.navCtrl.push(NewContactPage)
+  }
+
+  pickContactFromPhone() {
     console.log('opening contacts');
 
     this.contacts.pickContact().then(
       contact => {
-        console.log(contact);
         if (contact) {
-          this.entry.addContact(contact);
+          let c = new EntryContact({});
+          c.displayName = contact.displayName;
+          c.numbers = [];
+          contact.phoneNumbers.forEach(number => c.numbers.push(number.value));
+
+          this.contactService.add(c).then(
+            resp => {
+              this.entry.contacts.push("" + (resp.insertId--));
+            }
+          )
         }
       })
       .catch(err => console.log(err))
   }
 
+  getContactName(id: string) {
+    let res = "";
+    let contact = this.contactService.get(id);
+    if (contact) {
+      res = contact.displayName;
+    }
+    return res;
+  }
+
   SubmitNewEntry() {
 
     this.entry.date = moment(this.currentDate).add().toDate();
-    console.log(this.time);
-    console.log(this.entry);
     // Sauvegarde l'entrée
     this.storeService.saveEntry(this.entry);
     // Change l'entrée courante par defaut
@@ -202,6 +297,8 @@ export class NewEntryPage {
     // Return false pour pas que le form submit (effet de rechargement de la page)
     return false
   }
+
+
 
 
 }

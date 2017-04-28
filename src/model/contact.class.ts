@@ -11,10 +11,10 @@ export class EntryContact {
   displayName: string;
   numbers :string[];
 
-  constructor(id:string, name:string, numbers :string[]) {
-    this.id = id;
-    this.displayName = name;
-    this.numbers = numbers;
+  constructor(obj :any) {
+    this.id = obj.id || undefined;
+    this.displayName = obj.displayName || undefined;
+    this.numbers = obj.numbers || [];
   }
 
 

@@ -2,6 +2,8 @@ import { Component, SimpleChanges } from '@angular/core';
 import { NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { Entry } from "../../model/entry.class";
 import { StoreService } from "../../providers/storage";
+import { ContactService } from "../../providers/contact";
+
 /*
   Edition d'une entité
 
@@ -20,6 +22,7 @@ export class EditEntryPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private store: StoreService,
+              private contactService: ContactService ,
               public actionSheetCtrl: ActionSheetController) {
     this.entry = this.navParams.data.entry;
     this.dbIndex = this.store.getIndexOfEntry(this.entry);
@@ -34,7 +37,6 @@ export class EditEntryPage {
   }
 
   update() {
-    console.log('updating ' + this.entry.title)
     if (this.store.update(this.dbIndex, this.entry)) {
       this.navCtrl.pop();
     }
@@ -100,7 +102,18 @@ export class EditEntryPage {
   }
 
   pressClearContact(id :string) {
-    console.log('clear contact ' + id)
+    this.entry.clearContact(id);
+    this.needToUpdate = true;
+  }
+
+
+  getContactName(id:string) {
+    let res = "";
+    let contact = this.contactService.get(id);
+    if(contact) {
+      res = contact.displayName;
+    }
+    return res;
   }
 
 }

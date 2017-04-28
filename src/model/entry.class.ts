@@ -8,7 +8,7 @@ export class Entry {
   date: Date;
   content: string;
   images: string[];
-  contacts: EntryContact[];
+  contacts: string[];
   ville: string;
 
 
@@ -22,21 +22,13 @@ export class Entry {
   }
 
 
-  addContact(c: Contact) {
-    let nums: string[] = [];
+  addContact(c: EntryContact) {
 
-    // Récupère seulement les numéros pour les ajouter
-    if (c.phoneNumbers) {
-      nums = c.phoneNumbers.map(pn => pn.value);
-    }
-
-    // Ajout de EntryContact à la liste des contacts de l'entrée
-    this.contacts.push(new EntryContact(c.id, c.displayName, nums))
   }
 
   /**
    * Supprime la première image qui match l'uri donné
-   * @param uri 
+   * @param uri
    */
   deleteImage(uri: string) {
     let firstImageMatch = this.images.findIndex(entryUri => entryUri == uri);
@@ -47,6 +39,10 @@ export class Entry {
 
   clearPos() {
     this.ville = undefined;
+  }
+
+  clearContact(id:string) {
+    this.contacts = this.contacts.filter(c => c !== id);
   }
 
 }
