@@ -177,14 +177,14 @@ export class NewEntryPage {
   pickContact() {
     console.log('opening contacts');
 
-    this.contacts.pickContact().then(
-      contact => {
-        console.log(contact);
-        if (contact) {
-          this.entry.addContact(contact);
-        }
-      })
-      .catch(err => console.log(err))
+    // this.contacts.pickContact().then(
+    //   contact => {
+    //     console.log(contact);
+    //     if (contact) {
+    //       this.entry.addContact(contact);
+    //     }
+    //   })
+    //   .catch(err => console.log(err))
   }
 
   SubmitNewEntry() {

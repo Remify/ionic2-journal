@@ -22,7 +22,7 @@
     "@ionic-native/base64-to-gallery": "^3.4.4",
     "@ionic-native/camera": "^3.4.4",
     "@ionic-native/contacts": "^3.2.4",
-    "@ionic-native/core": "^3.2.2",
+    "@ionic-native/core": "^3.6.1",
     "@ionic-native/date-picker": "^3.2.3",
     "@ionic-native/file": "^3.2.2",
     "@ionic-native/file-path": "^3.2.2",

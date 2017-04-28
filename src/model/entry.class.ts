@@ -31,12 +31,13 @@ export class Entry {
     }
 
     // Ajout de EntryContact à la liste des contacts de l'entrée
-    this.contacts.push(new EntryContact(c.id, c.displayName, nums))
+    const contact = {id: c.id,displayName: c.displayName,numbers: nums};
+    this.contacts.push(new EntryContact(contact));
   }
 
   /**
    * Supprime la première image qui match l'uri donné
-   * @param uri 
+   * @param uri
    */
   deleteImage(uri: string) {
     let firstImageMatch = this.images.findIndex(entryUri => entryUri == uri);
