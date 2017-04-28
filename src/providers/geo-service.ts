@@ -1,14 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
-import {keys} from '../app/keys';
-import {Observable} from "rxjs";
+import { keys } from '../app/keys';
+import { Observable } from "rxjs";
 
-/*
- Generated class for the GeoService provider.
-
- See https://angular.io/docs/ts/latest/guide/dependency-injection.html
- for more info on providers and Angular 2 DI.
+/**
+ * Service pour attaque l'API de Google Maps
  */
 @Injectable()
 export class GeoService {
@@ -18,8 +15,9 @@ export class GeoService {
 
   }
 
+  // Genere l'URL pour récupèrer les info sur une position 
   generateUrl(latitude: number, longitude: number) {
-    return 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude+ ','+ longitude +'&key=' + keys.maps
+    return 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=' + keys.maps
   }
 
   /**
@@ -28,10 +26,10 @@ export class GeoService {
    * @param longitude
    * @returns {Observable<R>}
    */
-  getLocation(latitude: number, longitude: number) :Observable<Response>{
+  getLocation(latitude: number, longitude: number): Observable<Response> {
     return this.http
-                .get(this.generateUrl(latitude, longitude))
-                .map(res => res.json())
+      .get(this.generateUrl(latitude, longitude))
+      .map(res => res.json())
   }
 
 }
