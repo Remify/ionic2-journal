@@ -8,7 +8,7 @@ export class Entry {
   date: Date;
   content: string;
   images: string[];
-  contacts: EntryContact[];
+  contacts: string[];
   ville: string;
 
 
@@ -22,17 +22,8 @@ export class Entry {
   }
 
 
-  addContact(c: Contact) {
-    let nums: string[] = [];
+  addContact(c: EntryContact) {
 
-    // Récupère seulement les numéros pour les ajouter
-    if (c.phoneNumbers) {
-      nums = c.phoneNumbers.map(pn => pn.value);
-    }
-
-    // Ajout de EntryContact à la liste des contacts de l'entrée
-    const contact = {id: c.id,displayName: c.displayName,numbers: nums};
-    this.contacts.push(new EntryContact(contact));
   }
 
   /**
@@ -48,6 +39,10 @@ export class Entry {
 
   clearPos() {
     this.ville = undefined;
+  }
+
+  clearContact(id:string) {
+    this.contacts = this.contacts.filter(c => c !== id);
   }
 
 }

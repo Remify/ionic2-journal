@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {Entry} from '../../model/entry.class';
 import {EditEntryPage} from "../edit-entry/edit-entry";
-
+import { ContactService } from "../../providers/contact";
 /*
  Generated class for the Entry page.
 
@@ -24,18 +24,23 @@ export class EntryPage {
   // Object passé au NavController
   params;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    console.log(this.navParams)
+  constructor(public navCtrl: NavController, public navParams: NavParams, private contactService: ContactService ) {
     this.entry = this.navParams.data.entry;
     this.params = {entry: this.entry};
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EntryPage');
-  }
 
   showContact(id: string) {
-    console.log('show contacts id :' + id);
+  }
+
+
+  getContactName(id:string) {
+    let res = "";
+    let contact = this.contactService.get(id);
+    if(contact) {
+      res = contact.displayName;
+    }
+    return res;
   }
 
 }

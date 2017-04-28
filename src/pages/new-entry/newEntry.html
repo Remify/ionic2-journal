@@ -42,8 +42,8 @@
 
         <ion-row  *ngIf="entry.contacts.length > 0">
 
-          <ion-badge item-right *ngFor="let contact of entry.contacts">
-            {{ contact.displayName }}
+          <ion-badge item-right *ngFor="let contactId of entry.contacts">
+            {{ getContactName(contactId) }}
           </ion-badge>
 
         </ion-row>
@@ -82,7 +82,7 @@
     </ion-col>
     <ion-col text-center>
       <button ion-button icon-center clear small class="bottom-bar-btn"
-      (click)="pickContact()">
+      (click)="openContactOptions()">
         <ion-icon name="contacts"></ion-icon>
       </button>
     </ion-col>

@@ -21,6 +21,9 @@ import {GeoService} from "../providers/geo-service";
 import {EditEntryPage} from "../pages/edit-entry/edit-entry";
 import {ContactsPage} from "../pages/contacts/contacts";
 import {ContactService} from "../providers/contact";
+import {SQLite} from "@ionic-native/sqlite";
+import {NewContactPage} from "../pages/new-contact/new-contact";
+import { CallNumber } from '@ionic-native/call-number';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,7 @@ import {ContactService} from "../providers/contact";
     TabsPage,
     EntryPage,
     EditEntryPage,
+    NewContactPage,
     Dotdotdot
   ],
   imports: [
@@ -46,13 +50,14 @@ import {ContactService} from "../providers/contact";
     ContactsPage,
     EntriesPage,
     EditEntryPage,
+    NewContactPage,
     TabsPage,
     EntryPage
   ],
   providers: [{
     provide: ErrorHandler,
     useClass: IonicErrorHandler
-  }, ImagePicker, StoreService, GeoService, ContactService, Camera, DatePicker, Contacts, Geolocation, Base64ToGallery]
+  }, ImagePicker, StoreService, GeoService,CallNumber, ContactService, SQLite, Camera, DatePicker, Contacts, Geolocation, Base64ToGallery]
 })
 export class AppModule {
 }

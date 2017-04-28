@@ -47,8 +47,8 @@
             <ion-icon name="people"></ion-icon>
 
 
-            <ion-badge item-right *ngFor="let contact of entry.contacts" (press)="pressClearContact(contact.id)">
-                {{ contact.displayName }}
+            <ion-badge item-right *ngFor="let contact of entry.contacts" (press)="pressClearContact(contact)">
+                {{ getContactName(contact) }}
             </ion-badge>
 
         </ion-row>

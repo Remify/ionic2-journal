@@ -5,6 +5,8 @@ import {Storage} from "@ionic/storage";
 import {StoreService} from "./storage";
 import {EntryContact} from "../model/contact.class";
 import {SQLite, SQLiteObject} from "@ionic-native/sqlite";
+import {isSuccess} from "@angular/http/src/http_utils";
+import {BehaviorSubject} from "rxjs";
 
 
 /*
@@ -14,39 +16,81 @@ import {SQLite, SQLiteObject} from "@ionic-native/sqlite";
 export class ContactService {
 
 
-  contacts: EntryContact[] = [];
+  db :SQLiteObject;
 
+  contacts: BehaviorSubject<EntryContact[]> = new BehaviorSubject([]);
   constructor(public http: Http, private storage: Storage, private store: StoreService, private sqlite: SQLite) {
 
-    this.store.entries.getValue().forEach(entry => {
-      entry.contacts.forEach(
-        contact => this.contacts.push(contact)
-      );
+  }
+
+  add(c :EntryContact) :Promise<any> {
+    const query = `INSERT INTO contacts (displayName, numbers) VALUES (
+                  '${c.displayName}', '${ c.numbers.toString()}'
+                  );`;
+
+    let promise = this.db.executeSql(query, []);
+    promise.then(success => this.updateAll());
+    return promise;
+  }
+
+  get(id :string): EntryContact {
+    console.log('contact id', id);
+    return this.contacts.getValue().find(c => {
+      console.log(c.id);
+      return  c.id == id;
     });
+  }
 
-    // Ouvre ou créer la base de donnée
-    this.sqlite.create({
-      name: 'journal.db',
-      location: 'default'
-    }).then((db: SQLiteObject) => {
+  updateAll() {
+    let updatedContacts = [];
 
-        /**
-         * Numbers sera un tableau JSON.ToString()
-         */
-        const DB_QUERY = `CREATE TABLE contacts(
-                          id INT PRIMARY KEY NOT NULL,
+    this.getAll().then(results => {
+      results.forEach(obj => {
+        updatedContacts.push(new EntryContact(obj))
+      });
+
+      this.contacts.next(updatedContacts);
+    });
+  }
+
+  getAll() : Promise<any> {
+
+    let sql = 'SELECT * FROM contacts';
+    return this.db.executeSql(sql, [])
+      .then(response => {
+        let contacts = [];
+
+        for (let index = 0; index < response.rows.length; index++) {
+          contacts.push( response.rows.item(index) );
+        }
+        return Promise.resolve( contacts );
+      })
+      .catch(error => Promise.reject(error));
+  }
+
+
+  setDB(db :SQLiteObject) {
+    this.db = db;
+  }
+
+  init() {
+    /**
+     * Numbers sera un tableau JSON.ToString()
+     */
+    const DB_QUERY = `CREATE TABLE IF NOT EXISTS contacts(
+                          id INTEGER PRIMARY KEY AUTOINCREMENT,
                           displayName VARCHAR(255),
                           numbers TEXT
                       )`;
 
-        db.executeSql(DB_QUERY, {})
-          .then(() => console.log('DATABASE CREATE'))
-          .catch(e => console.log(e));
-
-
+    this.db.executeSql(DB_QUERY, {})
+      .then(() => {
+        console.log('DATABASE CREATE');
+        this.updateAll();
       })
       .catch(e => console.log(e));
 
   }
+
 
 }

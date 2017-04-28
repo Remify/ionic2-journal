@@ -42,7 +42,7 @@
 
 
             <ion-badge item-right *ngFor="let contact of entry.contacts" (click)="showContact(contact.id)">
-                {{ contact.displayName }}
+                {{ getContactName(contact) }}
             </ion-badge>
 
         </ion-row>

@@ -13,6 +13,7 @@ import { Entry } from "../model/entry.class"
 export class StoreService {
   /**
    * List des Entry
+   * Abonnement posssible à change changement
    * @type {BehaviorSubject}
    */
   entries: BehaviorSubject<Entry[]> = new BehaviorSubject([]);
@@ -67,7 +68,10 @@ export class StoreService {
     return this.entries.getValue().indexOf(e);
   }
 
-
+  /**
+   * Sauvegarde une Entrée
+   * @param e
+   */
   saveEntry(e: Entry) {
     let cacheArr = this.entries.getValue();
     cacheArr.push(e);
